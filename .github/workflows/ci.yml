@@ -8,16 +8,17 @@ jobs:
 
       - name: Install uv
         uses: astral-sh/setup-uv@v3
+        with:
+          version: "0.4.30"
+          enable-cache: true
 
       - name: Set up Python
         run: uv python install
 
-      - name: activate virtual env
-        run: uv venv && source .venv/bin/activate
-
-      - name: Install the project
-        run: uv sync --all-extras
+      - name: Create virtual environment and install dependencies
+        run: |
+          uv venv  # Creates a virtual environment
+          uv sync --all-extras --dev  # Installs dependencies into the .venv environment
 
       - name: Run tests
-        run: |
-          pytest tests/
+        run: uv run pytest tests/ # Runs pytest within the uv-managed environment
