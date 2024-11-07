@@ -1,0 +1,14 @@
+[project]
+name = "rag-metrics"
+version = "0.1.0"
+description = "Metrics for RAG systems"
+readme = "README.md"
+authors = [
+    { name = "Ivan Leo", email = "ivanleomk@gmail.com" } 
+]
+requires-python = ">=3.11"
+dependencies = []
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
