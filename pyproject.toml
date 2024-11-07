@@ -1,7 +1,7 @@
 [project]
-name = "ragmetrics"
+name = "indomee"
 version = "0.1.0"
-description = "Metrics for RAG systems"
+description = "Determine if your retrieved results are in-domain hehe get it?"
 readme = "README.md"
 authors = [
     { name = "Ivan Leo", email = "ivanleomk@gmail.com" } 
