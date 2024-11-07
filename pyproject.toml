@@ -1,5 +1,5 @@
 [project]
-name = "rag-metrics"
+name = "ragmetrics"
 version = "0.1.0"
 description = "Metrics for RAG systems"
 readme = "README.md"
