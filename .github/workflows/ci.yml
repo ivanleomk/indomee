@@ -12,10 +12,12 @@ jobs:
       - name: Set up Python
         run: uv python install
 
+      - name: activate virtual env
+        run: uv venv && source .venv/bin/activate
+
       - name: Install the project
         run: uv sync --all-extras
-      - name: activate virtual env
-        run: uv venv
+
       - name: Run tests
         run: |
           pytest tests/
