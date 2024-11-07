@@ -1,7 +1,7 @@
 [project]
 name = "indomee"
-version = "0.1.0"
-description = "Determine if your retrieved results are in-domain hehe get it?"
+version = "0.1.1"
+description = "Python package for evaluation of retrieval-augmented generation (RAG) models"
 readme = "README.md"
 authors = [
     { name = "Ivan Leo", email = "ivanleomk@gmail.com" } 
