@@ -1,21 +1,55 @@
 # Indomee
 
-**Indomee** is a Python package designed to simplify the evaluation of retrieval-augmented generation (RAG) models and other retrieval-based systems. With `indomee`, you can compute common evaluation metrics like **recall** and **mean reciprocal rank (MRR)** at various levels of _k_, all through a straightforward API. Additionally, `indomee` provides tools for **statistical analysis**, including **t-testing**, **bootstrapping**, and **confidence interval (CI) calculations**.
+**Indomee** is a Python package designed to simplify the evaluation of retrieval-augmented generation (RAG) models and other retrieval-based systems. With `indomee`, you can compute common evaluation metrics like **recall** and **mean reciprocal rank (MRR)** at various levels of _k_, all through a straightforward API.
 
----
-
-## Features
-
-- **Compute Evaluation Metrics**: Easily calculate metrics such as recall and mean reciprocal rank.
-- **Flexible k-Level Analysis**: Apply metrics at different levels of _k_ simultaneously.
-- **Statistical Analysis Tools**: Perform t-tests, bootstrapping, and CI calculations effortlessly.
-- **Configurable with Simple Files**: Use a single configuration file to control and customize your evaluations.
-- **Streamlined Evaluation Code**: Reduce the amount of custom code you need to write for evaluation.
+We also provide support for simple bootstrapping at the moment with t-testing coming soon.
 
 ## Installation
 
-To install `indomee`, simply use pip:
-
 ```bash
 pip install indomee
+```
+
+You can get started with `indomee` with the following example
+
+Indomee provides functions to calculate various metrics such as Mean Reciprocal Rank (MRR) and Recall.
+
+#### Example Usage
+
+```python
+from indomee import calculate_mrr, calculate_recall, calculate_metrics_at_k
+
+mrr = calculate_mrr([1, 2, 3], [2, 3, 4])
+print("MRR:", mrr)
+# > MRR: 0.5
+
+# Calculate Recall
+recall = calculate_recall([1, 2, 3], [2])
+print("Recall:", recall)
+# > Recall: 1
+
+# Calculate metrics at specific k values
+metrics = calculate_metrics_at_k(
+    metrics=["recall"], preds=[1, 2, 3], labels=[2], k=[1, 2, 3]
+)
+print("Metrics at k:", metrics)
+# > {'recall@1': 0.0, 'recall@2': 1.0, 'recall@3': 1.0}
+```
+
+### 2. Bootstrapping
+
+Indomee also supports bootstrapping for more robust metric evaluation.
+
+#### Example Usage
+
+```python
+from indomee import bootstrap_sample, bootstrap
+
+# Bootstrapping a sample
+result = bootstrap_sample(preds=[["a", "b"], ["c", "d"], ["e", "f"]], labels=[["a", "b"], ["c", "d"], ["e", "f"]], n_samples=10, metrics=["recall"], k=[1, 2, 3])
+print("Bootstrap Sample Metrics:", result.sample_metrics)
+
+# Bootstrapping multiple samples
+result = bootstrap(preds=[["a", "b"], ["c", "d"], ["e", "f"]], labels=[["a", "b"], ["c", "d"], ["e", "f"]], n_samples=10, n_iterations=10, metrics=["recall"], k=[1, 2, 3])
+print("Bootstrap Metrics:", result.sample_metrics)
 ```
