@@ -1,8 +1,9 @@
 from dataclasses import dataclass
 import random
 from indomee.metrics import calculate_metrics_at_k
-from typing import Literal
+from typing import Literal, Sequence
 import pandas as pd
+from statistics import mean, stdev
 
 
 @dataclass
@@ -103,4 +104,44 @@ def bootstrap(
     return BootstrapResult(
         samples=samples,
         sample_metrics=metrics_from_df(pd.DataFrame(results)),
+    )
+
+
+def bootstrap_from_results(
+    results: Sequence[float],
+    n_samples: int = 1000,
+    sample_size: int | None = None,
+    confidence_level: float = 0.95,
+) -> BootstrapMetric:
+    """
+    Performs bootstrapping on raw metric results to calculate confidence intervals. We take the mean of the results and then calculate the confidence intervals from the bootstrap samples.
+
+    Args:
+        results: List of metric values to bootstrap from
+        n_samples: Number of bootstrap samples to draw
+        sample_size: Size of each bootstrap sample. If None, uses len(results)
+        confidence_level: Confidence level for intervals (default 0.95 for 95% CI)
+
+    Returns:
+        BootstrapMetric containing the mean value and confidence intervals
+    """
+    if sample_size is None:
+        sample_size = len(results)
+
+    bootstrap_samples = []
+    for _ in range(n_samples):
+        # Draw random samples with replacement
+        sample = [random.choice(results) for _ in range(sample_size)]
+        bootstrap_samples.append(mean(sample))
+
+    # Calculate confidence intervals
+    sorted_samples = sorted(bootstrap_samples)
+    lower_idx = int((1 - confidence_level) / 2 * n_samples)
+    upper_idx = int((1 - (1 - confidence_level) / 2) * n_samples)
+
+    return BootstrapMetric(
+        name="bootstrap_metric",
+        value=mean(results),
+        ci_lower=sorted_samples[lower_idx],
+        ci_upper=sorted_samples[upper_idx],
     )

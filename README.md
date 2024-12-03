@@ -53,3 +53,7 @@ print("Bootstrap Sample Metrics:", result.sample_metrics)
 result = bootstrap(preds=[["a", "b"], ["c", "d"], ["e", "f"]], labels=[["a", "b"], ["c", "d"], ["e", "f"]], n_samples=10, n_iterations=10, metrics=["recall"], k=[1, 2, 3])
 print("Bootstrap Metrics:", result.sample_metrics)
 ```
+
+### 3. T-Testing
+
+For the last portion, we'll show how to perform a t-test between two different results that we've obtained from the different methods.
