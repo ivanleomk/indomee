@@ -1,6 +1,6 @@
 [project]
 name = "indomee"
-version = "0.1.2"
+version = "0.1.3"
 description = "Python package for evaluation of retrieval-augmented generation (RAG) models"
 readme = "README.md"
 authors = [
