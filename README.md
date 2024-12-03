@@ -57,3 +57,22 @@ print("Bootstrap Metrics:", result.sample_metrics)
 ### 3. T-Testing
 
 For the last portion, we'll show how to perform a t-test between two different results that we've obtained from the different methods.
+
+```python
+from indomee import perform_t_tests
+import pandas as pd
+
+df = pd.read_csv("./data.csv")
+
+# Calculate the mean for each method
+method_1 = df["method_1"].tolist()
+method_2 = df["method_2"].tolist()
+baseline = df["baseline"].tolist()
+
+results = perform_t_tests(
+    baseline, method_1, method_2,
+    names=["Baseline", "Method 1", "Method 2"],
+    paired=True,
+)
+results
+```
