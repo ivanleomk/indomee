@@ -1,6 +1,6 @@
 [project]
 name = "indomee"
-version = "0.1.4"
+version = "0.1.5"
 description = "Python package for evaluation of retrieval-augmented generation (RAG) models"
 readme = "README.md"
 authors = [
@@ -12,6 +12,7 @@ dependencies = [
     "rich>=13.9.4",
     "scipy>=1.14.1",
 ]
+license = {text = "MIT"}
 
 [project.optional-dependencies]
 test = [
